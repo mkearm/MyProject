@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <style>
+        body {
+            background-color: #FFC0CB; /* Light pink */
+            background-image: radial-gradient(white 15%, transparent 16%);
+            background-size: 30px 30px;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        #message {
+            color: #333;
+            font-size: 3em;
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="message">Hello World</h1>
+    <button id="colorButton">Change Color</button>
+
+    <script>
+        const message = document.getElementById('message');
+        const colorButton = document.getElementById('colorButton');
+        const colors = ['#FF69B4', '#FF1493', '#C71585', '#DB7093', '#DA70D6'];
+        let currentIndex = 0;
+
+        colorButton.addEventListener('click', () => {
+            message.style.color = colors[currentIndex];
+            currentIndex = (currentIndex + 1) % colors.length;
+        });
+    </script>
+
+</body>
+</html>
