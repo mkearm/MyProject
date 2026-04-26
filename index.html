@@ -3,6 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK Armstrong | Cincinnati Lifestyle Dashboard</title>
+    <style>
+        :root { --delta-blue: #003366; --delta-red: #E01933; --gold: #c5a059; --body-alive: #ff5722; }
+        body { font-family: 'Helvetica Neue', sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #333; }
+        header { background: var(--delta-blue); color: white; padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--delta-red); }
+        .container { max-width: 1000px; margin: 20px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--delta-blue); }
+        .full-width { grid-column: 1 / -1; }
+        h2 { color: var(--delta-blue); margin-top: 0; font-size: 1.3rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        
+        /* Favorites Grid */
+        .fav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 15px; }
+        .fav-item { background: #f9f9f9; padding: 10px; border-radius: 8px; text-align: center; font-size: 0.9rem; border: 1px solid #eee; font-weight: bold; color: var(--delta-blue); }
+
+        /* Progress Bar */
+        .progress-container { background: #eee; border-radius: 20px; height: 25px; width: 100%; margin: 15px 0; overflow: hidden; }
+        .progress-bar { background: var(--body-alive); height: 100%; width: 0%; transition: width 0.5s ease; }
+        
+        button { padding: 12px; border-radius: 8px; border: none; background: var(--delta-blue); color: white; font-weight: bold; width: 100%; cursor: pointer; transition: 0.2s; }
+        button:hover { background: var(--delta-red); transform: translateY(-2px); }
+        input { padding: 12px; border-radius: 8px; border: 1px solid #ddd; width: calc(100% - 26px); margin-bottom: 10px; }
+        
+        #map { border-radius: 12px; border: 2px solid var(--delta-blue); height: 350px; width: 100%; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MARY-KATE ARMSTRONG</h1>
+    <p>Aviation • Wellness • Cincinnati Lifestyle</p>
+</header>
+
+<div class="container">
+
+    <div class="card full-width">
+        <h2>✈️ Live Delta Fleet Tracker (CVG Hub)</h2>
+        <iframe id="map" src="https://www.flightradar24.com/simple_index.php?lat=39.04&lon=-84.66&z=9" frameborder="0"></iframe>
+    </div>
+
+    <div class="card">
+        <h2>🧘 Body Alive Class Tracker</h2>
+        <p>Goal: 4 Weekly Classes</p>
+        <div class="progress-container"><div id="classBar" class="progress-bar"></div></div>
+        <div style="text-align:center; font-weight:bold; color:var(--body-alive);"><span id="classCount">0</span> / 4 Completed</div>
+        <button onclick="addClass()" style="margin-top:15px;">+ Log Class</button>
+    </div>
+
+    <div class="card">
+        <h2>💰 Expense Tracker</h2>
+        <input type="number" id="spendAmount" placeholder="Amount ($)">
+        <button onclick="updateBudget()">Add Purchase</button>
+        <div id="budgetDisplay" style="margin-top:10px; font-weight:bold;">Total Spent: $0.00</div>
+    </div>
+
+    <div class="card full-width">
+        <h2>📍 Cincinnati Favorites</h2>
+        <p>Curated local spots for coffee, dining, and wellness.</p>
+        <div class="fav-grid">
+            <div class="fav-item">☕ Haven Cafe</div>
+            <div class="fav-item">🍝 Pepp & Dolores</div>
+            <div class="fav-item">🥗 Whole Foods</div>
+            <div class="fav-item">🍣 Ichiban</div>
+            <div class="fav-item">🥤 Tropical Smoothie</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let classes = 0;
+    function addClass() {
+        if (classes < 4) {
+            classes++;
+            document.getElementById('classBar').style.width = (classes / 4 * 100) + '%';
+            document.getElementById('classCount').innerText = classes;
+        }
+    }
+
+    let totalSpend = 0;
+    function updateBudget() {
+        const amt = parseFloat(document.getElementById('spendAmount').value);
+        if(!isNaN(amt)) {
+            totalSpend += amt;
+            document.getElementById('budgetDisplay').innerText = `Total Spent: $${totalSpend.toFixed(2)}`;
+            document.getElementById('spendAmount').value = '';
+        }
+    }
+</script>
+
+</body>
+</html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World</title>
     <style>
         body {
