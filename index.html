@@ -12,6 +12,7 @@
             --white: #ffffff;
         }
         
+        /* Forces the background to be solid light pink with NO dots */
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
             background-color: var(--light-pink) !important; 
@@ -49,20 +50,21 @@
         }
 
         .full-width { grid-column: 1 / -1; }
-        h2 { margin-top: 0; font-size: 1.3rem; color: var(--navy); border-bottom: 2px solid var(--light-pink); padding-bottom: 12px; letter-spacing: 1px; }
+        h2 { margin-top: 0; font-size: 1.3rem; color: var(--navy); border-bottom: 2px solid var(--light-pink); padding-bottom: 12px; }
 
+        /* Reliable Live Camera Styling */
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; border: 4px solid var(--navy); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         
         .progress-container { background: #eee; border-radius: 20px; height: 30px; margin: 20px 0; overflow: hidden; }
-        .progress-bar { background: var(--navy); height: 100%; width: 0%; transition: width 0.6s ease-in-out; }
+        .progress-bar { background: var(--navy); height: 100%; width: 0%; transition: width 0.6s ease; }
         
         button { 
             padding: 14px; border-radius: 10px; border: none; 
             background: var(--navy); color: var(--white); 
-            font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; font-size: 1rem;
+            font-weight: bold; width: 100%; cursor: pointer;
         }
-        button:hover { background: var(--accent-pink); transform: translateY(-2px); }
+        button:hover { background: var(--accent-pink); }
 
         .fav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .fav-item { background: var(--light-pink); padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; border: 1px solid var(--accent-pink); }
@@ -76,16 +78,16 @@
 
 <div class="container">
     <div class="card full-width">
-        <h2>✈️ LIVE DELTA HUB: ATLANTA (ATL)</h2>
+        <h2>✈️ LIVE AIRPORT OPERATIONS FEED</h2>
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/Y0hHWs1fNHY?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLBAsX8NAnCq7pM8oY7-E0P7Y7XW2Z0lR5&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
     <div class="card">
         <h2>🧘 BODY ALIVE WEEKLY GOAL</h2>
         <div class="progress-container"><div id="classBar" class="progress-bar"></div></div>
-        <div style="text-align:center; font-weight:bold; font-size: 1.1rem;"><span id="classCount">0</span> / 4 CLASSES COMPLETED</div>
+        <div style="text-align:center; font-weight:bold;"><span id="classCount">0</span> / 4 CLASSES COMPLETED</div>
         <button onclick="addClass()" style="margin-top:20px;">LOG CLASS</button>
     </div>
 
