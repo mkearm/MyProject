@@ -9,12 +9,12 @@
             --navy: #001f3f; 
             --light-pink: #f8bbd0; 
             --accent-pink: #f48fb1;
-            --white: #ffffff;
         }
         
         body { 
-            font-family: 'Helvetica Neue', sans-serif; 
-            background-color: var(--light-pink); 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            background-color: var(--light-pink) !important; 
+            background-image: none !important; /* This kills the dots */
             margin: 0; 
             padding: 0; 
             color: var(--navy); 
@@ -23,55 +23,51 @@
         header { 
             background: var(--navy); 
             color: var(--light-pink); 
-            padding: 60px 20px; 
+            padding: 70px 20px; 
             text-align: center; 
             border-bottom: 8px solid var(--accent-pink); 
         }
 
+        h1 { 
+            margin: 0; 
+            font-size: 2.8rem; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+        }
+
         .container { 
             max-width: 900px; 
-            margin: 30px auto; 
-            padding: 20px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 25px; 
+            gap: 30px; 
         }
 
         .card { 
-            background: var(--white); 
-            padding: 25px; 
-            border-radius: 20px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
-            border: 2px solid var(--accent-pink);
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            border: 1px solid var(--accent-pink);
         }
 
         .full-width { grid-column: 1 / -1; }
+        h2 { margin-top: 0; font-size: 1.2rem; border-bottom: 1px solid var(--light-pink); padding-bottom: 10px; }
 
-        h1 { margin: 0; font-size: 3rem; letter-spacing: 4px; font-weight: bold; }
-        h2 { color: var(--navy); margin-top: 0; border-bottom: 2px solid var(--light-pink); padding-bottom: 10px; }
-
-        /* Body Alive Tracker UI */
-        .progress-container { background: #eee; border-radius: 20px; height: 30px; width: 100%; margin: 15px 0; overflow: hidden; }
+        .map-container { border-radius: 10px; overflow: hidden; border: 2px solid var(--navy); height: 400px; }
+        
+        .progress-container { background: #eee; border-radius: 20px; height: 25px; margin: 20px 0; overflow: hidden; }
         .progress-bar { background: var(--navy); height: 100%; width: 0%; transition: width 0.5s ease; }
         
         button { 
-            padding: 12px; 
-            border-radius: 10px; 
-            border: none; 
-            background: var(--navy); 
-            color: var(--light-pink); 
-            font-weight: bold; 
-            width: 100%; 
-            cursor: pointer; 
-            transition: 0.3s;
+            padding: 12px; border-radius: 8px; border: none; 
+            background: var(--navy); color: var(--light-pink); 
+            font-weight: bold; width: 100%; cursor: pointer; 
         }
-        
-        button:hover { background: var(--accent-pink); color: var(--navy); }
 
-        .fav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 15px; }
-        .fav-item { background: var(--light-pink); padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; color: var(--navy); border: 1px solid var(--accent-pink); }
-
-        #map { border-radius: 15px; border: 3px solid var(--navy); height: 400px; width: 100%; }
+        .fav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .fav-item { background: var(--light-pink); padding: 10px; border-radius: 8px; text-align: center; font-size: 0.9rem; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -81,31 +77,29 @@
 </header>
 
 <div class="container">
-
     <div class="card full-width">
-        <h2>✈️ Live Delta Fleet Tracker (CVG Hub)</h2>
-        <iframe id="map" src="https://www.flightradar24.com/simple_index.php?lat=39.04&lon=-84.66&z=9" frameborder="0"></iframe>
-    </div>
-
-    <div class="card">
-        <h2>🧘 Body Alive Class Tracker</h2>
-        <p>Goal: 4 Weekly Classes</p>
-        <div class="progress-container"><div id="classBar" class="progress-bar"></div></div>
-        <div style="text-align:center; font-weight:bold; color:var(--navy);"><span id="classCount">0</span> / 4 Completed</div>
-        <button onclick="addClass()" style="margin-top:15px;">Log New Class</button>
-    </div>
-
-    <div class="card">
-        <h2>📍 Cincinnati Favorites</h2>
-        <div class="fav-grid">
-            <div class="fav-item">☕ Haven Cafe</div>
-            <div class="fav-item">🍝 Pepp & Dolores</div>
-            <div class="fav-item">🥗 Whole Foods</div>
-            <div class="fav-item">🍣 Ichiban</div>
-            <div class="fav-item">🥤 Tropical Smoothie</div>
+        <h2>✈️ DELTA FLEET TRACKER (CVG)</h2>
+        <div class="map-container">
+            <iframe src="https://www.flightradar24.com/simple_index.php?lat=39.04&lon=-84.66&z=9" width="100%" height="100%" frameborder="0"></iframe>
         </div>
     </div>
 
+    <div class="card">
+        <h2>🧘 BODY ALIVE PROGRESS</h2>
+        <div class="progress-container"><div id="classBar" class="progress-bar"></div></div>
+        <div style="text-align:center; font-weight:bold;"><span id="classCount">0</span> / 4 CLASSES</div>
+        <button onclick="addClass()" style="margin-top:15px;">LOG CLASS</button>
+    </div>
+
+    <div class="card">
+        <h2>📍 CINCY FAVORITES</h2>
+        <div class="fav-grid">
+            <div class="fav-item">Haven Cafe</div>
+            <div class="fav-item">Pepp & Dolores</div>
+            <div class="fav-item">Ichiban</div>
+            <div class="fav-item">Tropical Smoothie</div>
+        </div>
+    </div>
 </div>
 
 <script>
