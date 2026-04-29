@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Dash</title>
+    <style>
+        body { 
+            margin: 0; 
+            background-color: #001f3f; /* Navy */
+            color: #ff69b4; /* Pink */
+            font-family: sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+        canvas { 
+            border: 3px solid #ff69b4; 
+            background-color: #001429; 
+            border-radius: 10px; 
+            max-width: 90%;
+        }
+        #scoreDisplay { 
+            font-size: 24px; 
+            margin-bottom: 10px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+        }
+    </style>
+</head>
+<body>
+    <div id="scoreDisplay">Score: 0</div>
+    <canvas id="gameCanvas" width="350" height="450"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+
+        let plane = { x: 50, y: 200, width: 30, height: 20, gravity: 0.5, lift: -8, velocity: 0 };
+        let obstacles = [];
+        let score = 0;
+        let gameActive = true;
+        let frame = 0;
+
+        function drawPlane() {
+            ctx.fillStyle = "#ff69b4"; 
+            ctx.beginPath();
+            ctx.ellipse(plane.x + 15, plane.y + 10, 15, 7, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillRect(plane.x, plane.y, 4, -8); // Plane Tail
+        }
+
+        function createObstacle() {
+            let gap = 140;
+            let height = Math.floor(Math.random() * (canvas.height - gap - 100)) + 50;
+            obstacles.push({ x: canvas.width, top: height, bottom: canvas.height - height - gap, width: 40 });
+        }
+
+        function update() {
+            if (!gameActive) return;
+            plane.velocity += plane.gravity;
+            plane.y += plane.velocity;
+            
+            if (frame % 100 === 0) createObstacle();
+            
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                obstacles[i].x -= 2.5;
+                
+                // Collision Logic
+                if (plane.x + plane.width > obstacles[i].x && plane.x < obstacles[i].x + obstacles[i].width &&
+                    (plane.y < obstacles[i].top || plane.y + plane.height > canvas.height - obstacles[i].bottom)) {
+                    gameActive = false;
+                }
+                
+                if (obstacles[i].x + obstacles[i].width < 0) { 
+                    obstacles.splice(i, 1); 
+                    score++; 
+                    scoreDisplay.innerText = "Score: " + score; 
+                }
+            }
+            if (plane.y + plane.height > canvas.height || plane.y < 0) gameActive = false;
+            frame++;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlane();
+            ctx.fillStyle = "rgba(255, 255, 255, 0.2)"; // Turbulence/Clouds
+            obstacles.forEach(opt => {
+                ctx.fillRect(opt.x, 0, opt.width, opt.top);
+                ctx.fillRect(opt.x, canvas.height - opt.bottom, opt.width, opt.bottom);
+            });
+            
+            if (!gameActive) {
+                ctx.fillStyle = "white";
+                ctx.font = "bold 20px Arial";
+                ctx.fillText("FLIGHT CANCELLED", 75, 220);
+                ctx.font = "14px Arial";
+                ctx.fillText("Click to Restart", 125, 250);
+            }
+        }
+
+        function gameLoop() { 
+            update(); 
+            draw(); 
+            if (gameActive) requestAnimationFrame(gameLoop); 
+        }
+
+        function reset() { 
+            plane.y = 200; 
+            plane.velocity = 0; 
+            obstacles = []; 
+            score = 0; 
+            scoreDisplay.innerText = "Score: 0"; 
+            gameActive = true; 
+            frame = 0; 
+            gameLoop(); 
+        }
+        
+        window.addEventListener("keydown", (e) => { if (e.code === "Space") plane.velocity = plane.lift; });
+        canvas.addEventListener("mousedown", () => { if (!gameActive) reset(); else plane.velocity = plane.lift; });
+        canvas.addEventListener("touchstart", (e) => { 
+            e.preventDefault(); 
+            if (!gameActive) reset(); 
+            else plane.velocity = plane.lift; 
+        });
+
+        gameLoop();
+    </script>
+</body>
+</html>
