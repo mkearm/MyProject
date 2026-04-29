@@ -5,113 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MARY-KATE ARMSTRONG</title>
     <style>
-        :root { 
-            --navy: #001f3f; 
-            --light-pink: #fce4ec; 
+        :root {
+            --navy: #001f3f;
+            --light-pink: #fce4ec;
             --accent-pink: #f06292;
             --white: #ffffff;
         }
-        
-        /* Forces the background to be solid light pink with NO dots */
-        body { 
-            font-family: 'Helvetica Neue', Arial, sans-serif; 
-            background-color: var(--light-pink) !important; 
-            background-image: none !important; 
-            margin: 0; 
-            padding: 0; 
-            color: var(--navy); 
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--navy) !important; /* Back to Navy */
+            margin: 0;
+            padding: 20px;
+            color: var(--white);
+            text-align: center;
         }
 
-        header { 
-            background: var(--navy); 
-            color: var(--white); 
-            padding: 70px 20px; 
-            text-align: center; 
-            border-bottom: 8px solid var(--accent-pink); 
+        h1 { color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Game Section */
+        .section-container { margin: 40px 0; }
+        iframe { border: 3px solid var(--accent-pink); border-radius: 15px; }
+
+        /* Pilates Tracker */
+        #pilates-box {
+            border: 2px solid var(--accent-pink);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 20px 0;
+            background: rgba(255,255,255,0.05);
         }
+        #count { font-size: 3.5rem; color: var(--accent-pink); font-weight: bold; }
 
-        h1 { margin: 0; font-size: 3rem; letter-spacing: 6px; text-transform: uppercase; font-weight: bold; }
-
-        .container { 
-            max-width: 950px; 
-            margin: 40px auto; 
-            padding: 0 20px; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 30px; 
-        }
-
-        .card { 
-            background: var(--white); 
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 2px solid var(--navy);
-        }
-
-        .full-width { grid-column: 1 / -1; }
-        h2 { margin-top: 0; font-size: 1.3rem; color: var(--navy); border-bottom: 2px solid var(--light-pink); padding-bottom: 12px; }
-
-        /* Reliable Live Camera Styling */
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; border: 4px solid var(--navy); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        
-        .progress-container { background: #eee; border-radius: 20px; height: 30px; margin: 20px 0; overflow: hidden; }
-        .progress-bar { background: var(--navy); height: 100%; width: 0%; transition: width 0.6s ease; }
-        
-        button { 
-            padding: 14px; border-radius: 10px; border: none; 
-            background: var(--navy); color: var(--white); 
-            font-weight: bold; width: 100%; cursor: pointer;
-        }
-        button:hover { background: var(--accent-pink); }
-
-        .fav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .fav-item { background: var(--light-pink); padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; border: 1px solid var(--accent-pink); }
+        /* Favorite Cards */
+        .favorites-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
+        .flip-card { background-color: transparent; width: 240px; height: 100px; perspective: 1000px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 2px solid var(--accent-pink); font-weight: bold; }
+        .card-front { background-color: var(--navy); color: var(--white); }
+        .card-back { background-color: var(--accent-pink); color: var(--navy); transform: rotateY(180deg); padding: 10px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>MARY-KATE ARMSTRONG</h1>
-</header>
+    <h1>MARY-KATE ELIZABETH ARMSTRONG</h1>
 
-<div class="container">
-    <div class="card full-width">
-        <h2>✈️ LIVE AIRPORT OPERATIONS FEED</h2>
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PLBAsX8NAnCq7pM8oY7-E0P7Y7XW2Z0lR5&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+    <div class="section-container">
+        <h2 style="color: var(--accent-pink);">IN-FLIGHT ENTERTAINMENT</h2>
+        <iframe src="skydash.html" width="350" height="500" style="border:none;" scrolling="no"></iframe>
+    </div>
+
+    <div id="pilates-box">
+        <h3 style="margin-top:0;">HOT PILATES TRACKER</h3>
+        <div id="count">0</div>
+        <p style="margin-bottom:0;">Classes Completed This Week</p>
+    </div>
+
+    <div class="section-container">
+        <h2 style="color: var(--accent-pink);">CINCINNATI FAVORITES</h2>
+        <div class="favorites-grid">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="card-front">Tropical Smoothie</div>
+                    <div class="card-back">Bahama Mama</div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="card-front">Ichiban</div>
+                    <div class="card-back">Spicy Tuna Roll & Million Dollar Roll</div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="card-front">Pepp & Dolores</div>
+                    <div class="card-back">Spicy Penne Vodka</div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="card-front">Haven Cafe</div>
+                    <div class="card-back">Cinnamon Toast Crunch Latte</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <h2>🧘 BODY ALIVE WEEKLY GOAL</h2>
-        <div class="progress-container"><div id="classBar" class="progress-bar"></div></div>
-        <div style="text-align:center; font-weight:bold;"><span id="classCount">0</span> / 4 CLASSES COMPLETED</div>
-        <button onclick="addClass()" style="margin-top:20px;">LOG CLASS</button>
-    </div>
-
-    <div class="card">
-        <h2>📍 CINCY FAVORITES</h2>
-        <div class="fav-grid">
-            <div class="fav-item">Haven Cafe</div>
-            <div class="fav-item">Pepp & Dolores</div>
-            <div class="fav-item">Ichiban</div>
-            <div class="fav-item">Tropical Smoothie</div>
-        </div>
-    </div>
-</div>
-
-<script>
-    let classes = 0;
-    function addClass() {
-        if (classes < 4) {
-            classes++;
-            document.getElementById('classBar').style.width = (classes / 4 * 100) + '%';
-            document.getElementById('classCount').innerText = classes;
-        }
-    }
-</script>
+    <script>
+        // Automatic Pilates Tracker Logic
+        const today = new Date().getDay(); // 0=Sun, 1=Mon, 2=Tue...
+        let classCount = 0;
+        if (today >= 1) classCount++; // Monday happened
+        if (today >= 3) classCount++; // Wednesday happened
+        if (today >= 5) classCount++; // Friday happened
+        document.getElementById('count').innerText = classCount;
+    </script>
 
 </body>
 </html>
