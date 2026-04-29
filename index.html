@@ -18,100 +18,96 @@
             padding: 0;
             color: var(--white);
             text-align: center;
-            overflow-x: hidden; /* Prevents scrollbars when plane flies by */
+            overflow-x: hidden;
         }
 
-        /* PLANE ANIMATION */
-        .plane {
+        /* THE FLYING PLANE */
+        .plane-container {
             position: fixed;
-            top: 20%;
+            top: 25%;
             left: -100px;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.1); /* Subtle white silhouette */
-            z-index: -1; /* Behind everything */
-            transform: rotate(15deg);
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.1);
+            z-index: -1; 
+            pointer-events: none;
         }
-
         @keyframes flyAcross {
-            0% { left: -100px; top: 20%; opacity: 0; }
+            0% { transform: translate(0, 0) rotate(10deg); opacity: 0; }
             10% { opacity: 0.3; }
             90% { opacity: 0.3; }
-            100% { left: 110vw; top: 40%; opacity: 0; }
+            100% { transform: translate(120vw, 20vh) rotate(10deg); opacity: 0; }
         }
+        .animate-plane { animation: flyAcross 12s linear forwards; }
 
-        .flying { animation: flyAcross 8s linear forwards; }
-
-        /* TOP: Aviation Flight Board */
+        /* STATUS BOARD */
         .status-board {
             background-color: #001429;
             border-bottom: 3px solid var(--accent-pink);
-            padding: 20px;
+            padding: 15px;
             display: flex;
             justify-content: space-around;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
         }
-        .status-item span { color: var(--accent-pink); display: block; font-size: 1.1rem; margin-top: 5px; font-weight: bold; }
+        .status-item span { color: var(--accent-pink); display: block; font-size: 1rem; margin-top: 5px; font-weight: bold; }
 
-        header { padding: 50px 20px; }
+        header { padding: 40px 20px; }
         h1 { font-size: 3rem; color: var(--accent-pink); margin: 0; letter-spacing: 5px; font-weight: 800; }
         .subtitle { font-style: italic; opacity: 0.8; margin-top: 10px; letter-spacing: 1px; }
 
-        /* MIDDLE: Game Section */
-        .game-section { padding: 40px 20px; }
-        .game-title { color: var(--accent-pink); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px; }
-        iframe { border: 4px solid var(--accent-pink); border-radius: 25px; box-shadow: 0 0 25px rgba(240, 98, 146, 0.2); background: #000; }
-
-        /* BOTTOM: Lifestyle Dashboard */
-        .bottom-dashboard {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 80px 20px;
-            border-top: 3px solid var(--accent-pink);
-        }
-        .bottom-dashboard h2 {
-            font-size: 2.8rem; 
-            color: var(--accent-pink);
-            margin-bottom: 50px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        .flex-container {
+        /* COCKPIT SECTION */
+        .game-section { padding: 30px 20px; }
+        .cockpit-container {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 50px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-
-        .tracker-card {
-            border: 3px solid var(--accent-pink);
-            padding: 40px;
+        .side-panel {
+            min-width: 200px;
+            background: rgba(255,255,255,0.03);
+            padding: 25px;
             border-radius: 20px;
-            background: var(--navy);
-            min-width: 280px;
+            border-left: 2px solid var(--accent-pink);
         }
-        #count { font-size: 6rem; color: var(--accent-pink); font-weight: bold; line-height: 1; margin: 10px 0; }
+        .side-panel h4 { color: var(--accent-pink); margin-bottom: 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .side-panel p { font-size: 0.9rem; margin: 12px 0; line-height: 1.4; }
 
-        .favorites-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .flip-card { width: 240px; height: 90px; perspective: 1000px; }
+        iframe { border: 4px solid var(--accent-pink); border-radius: 25px; box-shadow: 0 0 20px rgba(240, 98, 146, 0.2); background: #000; }
+
+        /* DASHBOARD */
+        .bottom-dashboard {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 60px 20px;
+            border-top: 3px solid var(--accent-pink);
+        }
+        .dashboard-title { font-size: 2.5rem; color: var(--accent-pink); margin-bottom: 40px; letter-spacing: 3px; }
+        .flex-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; }
+
+        .tracker-card { border: 3px solid var(--accent-pink); padding: 30px; border-radius: 20px; background: var(--navy); min-width: 250px; }
+        #count { font-size: 5rem; color: var(--accent-pink); font-weight: bold; line-height: 1; }
+
+        .favorites-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .flip-card { width: 220px; height: 85px; perspective: 1000px; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 2.5px solid var(--accent-pink); font-weight: bold; }
-        .card-front { background-color: var(--navy); color: var(--white); font-size: 1.1rem; }
-        .card-back { background-color: var(--accent-pink); color: var(--navy); transform: rotateY(180deg); padding: 10px; font-size: 0.9rem; line-height: 1.2; }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 2px solid var(--accent-pink); font-weight: bold; }
+        .card-front { background-color: var(--navy); color: var(--white); }
+        .card-back { background-color: var(--accent-pink); color: var(--navy); transform: rotateY(180deg); padding: 8px; font-size: 0.85rem; }
 
-        @media (max-width: 850px) {
-            .status-board { flex-direction: column; gap: 20px; }
+        @media (max-width: 1000px) {
+            .cockpit-container { flex-direction: column; }
+            .side-panel { width: 100%; box-sizing: border-box; text-align: center !important; border-left: 0; border-top: 2px solid var(--accent-pink); }
             .favorites-grid { grid-template-columns: 1fr; }
-            .flex-container { gap: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="plane" class="plane">✈</div>
+    <div id="plane-icon" class="plane-container">✈</div>
 
     <div class="status-board">
         <div class="status-item">Current Hub <span>Cincinnati, OH</span></div>
@@ -122,70 +118,63 @@
 
     <header>
         <h1>MARY-KATE ARMSTRONG</h1>
-        <div class="subtitle">Future Management Professional | Aviation Enthusiast | Hot Pilates Fan</div>
+        <div class="subtitle">Aviation Enthusiast | Hot Pilates Fan</div>
     </header>
 
     <section class="game-section">
-        <h2 class="game-title">The Life of a Fly Girl</h2>
-        <iframe src="skydash.html" width="360" height="500" style="border:none;" scrolling="no"></iframe>
+        <h2 style="color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;">The Life of a Fly Girl</h2>
+        
+        <div class="cockpit-container">
+            <div class="side-panel" style="text-align: right;">
+                <h4>FLIGHT PATH</h4>
+                <p>📍 New Jersey <span style="color: var(--accent-pink);">➔</span> Cincinnati</p>
+                <p>PREFERRED CARRIER: <span style="color:var(--accent-pink); font-weight:bold;">DELTA</span></p>
+                <p>IN-FLIGHT WIFI: <span style="color:var(--accent-pink);">CONNECTED</span></p>
+            </div>
+
+            <iframe src="skydash.html" width="360" height="500" style="border:none;" scrolling="no"></iframe>
+
+            <div class="side-panel" style="text-align: left; border-left: 0; border-right: 2px solid var(--accent-pink);">
+                <h4>SYSTEM LOGS</h4>
+                <p>🏋️ GYM STATUS: <span style="color:var(--accent-pink);">POWERLIFTING</span></p>
+                <p>📈 PORTFOLIO: <span style="color:var(--accent-pink);">BULLISH</span></p>
+                <p>🔋 SOCIAL BATTERY: <span style="color:var(--accent-pink);">85%</span></p>
+            </div>
+        </div>
     </section>
 
     <section class="bottom-dashboard">
-        <h2>Cincinnati Favorites</h2>
-        
+        <h2 class="dashboard-title">Cincinnati Favorites</h2>
         <div class="flex-container">
             <div class="tracker-card">
-                <h3 style="margin: 0; font-size: 1.2rem; letter-spacing: 2px;">PILATES TRACKER</h3>
+                <h3 style="margin: 0; font-size: 1rem; letter-spacing: 1px;">PILATES TRACKER</h3>
                 <div id="count">0</div>
-                <p style="margin: 0; opacity: 0.8; text-transform: uppercase; font-size: 0.9rem;">Classes Completed This Week</p>
+                <p style="margin: 0; opacity: 0.8; font-size: 0.8rem; text-transform: uppercase;">Classes This Week</p>
             </div>
-
             <div class="favorites-grid">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="card-front">Tropical Smoothie</div>
-                        <div class="card-back">Bahama Mama</div>
-                    </div>
-                </div>
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="card-front">Ichiban</div>
-                        <div class="card-back">Spicy Tuna Roll & Million Dollar Roll</div>
-                    </div>
-                </div>
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="card-front">Pepp & Dolores</div>
-                        <div class="card-back">Spicy Penne Vodka</div>
-                    </div>
-                </div>
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="card-front">Haven Cafe</div>
-                        <div class="card-back">Cinnamon Toast Crunch Latte</div>
-                    </div>
-                </div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="card-front">Tropical Smoothie</div><div class="card-back">Bahama Mama</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="card-front">Ichiban</div><div class="card-back">Spicy Tuna & Million Dollar Roll</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="card-front">Pepp & Dolores</div><div class="card-back">Spicy Penne Vodka</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="card-front">Haven Cafe</div><div class="card-back">Cinn. Toast Crunch Latte</div></div></div>
             </div>
         </div>
     </section>
 
     <script>
-        // Automatic Pilates Tracker Logic
-        const today = new Date().getDay(); 
-        let classes = 0;
-        if (today >= 1) classes++; 
-        if (today >= 3) classes++; 
-        if (today >= 5) classes++; 
-        document.getElementById('count').innerText = classes;
+        // Set Pilates Count (Mon/Wed/Fri logic)
+        const d = new Date().getDay();
+        let c = 0; if(d>=1)c++; if(d>=3)c++; if(d>=5)c++;
+        document.getElementById('count').innerText = c;
 
-        // Plane Animation Logic
-        const plane = document.getElementById('plane');
-        setInterval(() => {
-            plane.classList.remove('flying');
-            void plane.offsetWidth; // Trigger reflow to restart animation
-            plane.classList.add('flying');
-        }, 15000); // Trigger every 15 seconds
+        // Plane Animation Trigger
+        const p = document.getElementById('plane-icon');
+        function fly() {
+            p.classList.remove('animate-plane');
+            void p.offsetWidth; 
+            p.classList.add('animate-plane');
+        }
+        setInterval(fly, 15000); 
+        fly(); 
     </script>
-
 </body>
 </html>
